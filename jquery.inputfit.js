@@ -7,7 +7,7 @@
     $.fn.inputfit = function(options) {
         var settings = $.extend({
 			minSize   : 12,
-			maxSize   : 24,
+			maxSize   : 24
         }, options);
 
             this.each(function(){
