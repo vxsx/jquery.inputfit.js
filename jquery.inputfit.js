@@ -34,11 +34,11 @@
                     var clone = $('#'+cloneId);
                     clone.text($this.val());
 
-                    var currentFontSize = parseInt( $this.css('font-size') );
+                    var currentFontSize = parseFloat( $this.css('font-size') );
 
                     if ( clone.width() < width - 10 ) {
                         while ( clone.width() < width - 20 ) {
-                            if ( currentFontSize < settings.maxSize ) { currentFontSize++  } else { break; }
+                            if ( currentFontSize < settings.maxSize ) { currentFontSize+=.1  } else { break; }
                             clone.css('font-size', currentFontSize + 'px');
                         }
                         $this.css('font-size', currentFontSize + 'px');
@@ -46,7 +46,7 @@
                     } else {
 
                         while ( clone.width() > width - 20 ) {
-                            if ( currentFontSize > settings.minSize ) { currentFontSize--  } else { break; }
+                            if ( currentFontSize > settings.minSize ) { currentFontSize-=.10  } else { break; }
                             clone.css('font-size', currentFontSize + 'px');
                         }
                         $this.css('font-size', currentFontSize + 'px');
