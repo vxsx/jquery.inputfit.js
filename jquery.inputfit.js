@@ -1,6 +1,13 @@
-/*global jQuery:true */
-(function($){
-    'use strict';
+/*global define:true */
+(function (factory) {
+    if (typeof define === 'function' && define.amd) {
+        // AMD. Register as an anonymous module.
+        define(['jquery'], factory);
+    } else {
+        // Browser globals
+        factory(jQuery);
+    }
+}(function ($) {
     $.fn.inputfit = function(options) {
         var settings = $.extend({
             minSize   : 10,
@@ -54,4 +61,4 @@
         return this;
     };
 
-})(jQuery);
+});
