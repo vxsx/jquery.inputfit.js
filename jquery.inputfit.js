@@ -1,80 +1,57 @@
-/**
-*  @author Vadim Sikora ( http://vxsx.ru )
-*  NO COPYRIGHTS, DO WHAT YOU WANT
-*  @requires jquery 1.4.4 or higher
-*/
+/*global jQuery:true */
 (function($){
+    'use strict';
     $.fn.inputfit = function(options) {
         var settings = $.extend({
-            minSize   : 12,
-            maxSize   : 24,
-            useCurrentSizeAsMax : true
+            minSize   : 10,
+            maxSize   : false
         }, options);
 
-            this.each(function() {
-                if ( !$(this).is(':input') ) {
-                    return;
-                }
-                
-                var maxSize = settings.maxSize;
-                
-                if( settings.useCurrentSizeAsMax ) {
-                    maxSize = parseFloat( $(this).css('font-size') );
-                }
+        this.each(function() {
+            var $input = $(this);
 
-                $(this).bind('keyup', function(event) {
-                    var $this   = $(this),
-                        cloneId = this.id + '_size-changing-clone',
-                        width   = $(this).width();
+            if ( !$input.is(':input') ) {
+                return;
+            }
 
-                    if (!$('#'+cloneId).length)
-                    {
-                        $('<div></div>', {
-                            id  : cloneId,
-                            css : {
-                                fontSize   : $(this).css('font-size'),
-                                position   : 'absolute',
-                                left       : '-9999px',
-                                fontFamily : $(this).css('font-family')
-                            }
-                        }).insertAfter(this)
+            $input.off('keyup.infputfit keydown.inputfit');
+
+            var maxSize = parseFloat(settings.maxSize || $input.css('font-size'), 10);
+            var width   = $input.width();
+            var clone   = $input.data('inputfit-clone');
+
+            if (!clone) {
+                clone = $('<div></div>', {
+                    css : {
+                        fontSize   : $input.css('font-size'),
+                        fontFamily : $input.css('font-family'),
+                        position   : 'absolute',
+                        left       : '-9999px',
+                        visibility : 'hidden'
                     }
-                    var clone = $('#'+cloneId);
-                    clone.text($this.val());
+                }).insertAfter($input);
 
-                    var currentFontSize = parseFloat( $this.css('font-size') );
+                $input.data('inputfit-clone', clone);
+            }
 
-                    if ( clone.width() < width - 10 ) {
-                        while ( clone.width() < width - 20 ) {
-                            if ( currentFontSize < maxSize ) {
-                                currentFontSize += .1;
-                            } else {
-                                break;
-                            }
-                            clone.css('font-size', currentFontSize + 'px');
-                        }
-                        $this.css('font-size', currentFontSize + 'px');
+            $input.on('keyup.inputfit keydown.inputfit', function() {
+                var $this = $(this);
 
-                    } else {
+                clone.html($this.val().replace(/ /g, '&nbsp;'));
 
-                        while ( clone.width() > width - 20 ) {
-                            if ( currentFontSize > settings.minSize ) {
-                                currentFontSize -= .1;
-                            } else {
-                                break;
-                            }
-                            clone.css('font-size', currentFontSize + 'px');
-                        }
-                        $this.css('font-size', currentFontSize + 'px');
-                    }
+                var ratio = width / (clone.width() || 1),
+                    currentFontSize = parseInt( $this.css('font-size'), 10 ),
+                    fontSize = Math.floor(currentFontSize * ratio);
 
+                if (fontSize > maxSize) { fontSize = maxSize; }
+                if (fontSize < settings.minSize) { fontSize = settings.minSize; }
 
-                })
-        })
+                $this.css('font-size', fontSize);
+                clone.css('font-size', fontSize);
+            });
+        });
 
-
-        //Chain:
         return this;
-    }
+    };
 
 })(jQuery);
