@@ -55,7 +55,7 @@
 
                 $this.css('font-size', fontSize);
                 clone.css('font-size', fontSize);
-            });
+            }).triggerHandler('keyup.inputfit');
         });
 
         return this;
