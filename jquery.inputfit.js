@@ -32,6 +32,9 @@
                     css : {
                         fontSize   : $input.css('font-size'),
                         fontFamily : $input.css('font-family'),
+                        fontStyle  : $input.css('font-style'),
+                        fontWeight : $input.css('font-weight'),
+                        fontVariant: $input.css('font-variant'),
                         position   : 'absolute',
                         left       : '-9999px',
                         visibility : 'hidden'
