@@ -21,7 +21,7 @@
                 return;
             }
 
-            $input.off('keyup.infputfit keydown.inputfit');
+            $input.off('keyup.inputfit keydown.inputfit');
 
             var maxSize = parseFloat(settings.maxSize || $input.css('font-size'), 10);
             var width   = $input.width();
