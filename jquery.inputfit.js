@@ -30,14 +30,15 @@
             if (!clone) {
                 clone = $('<div></div>', {
                     css : {
-                        fontSize   : $input.css('font-size'),
-                        fontFamily : $input.css('font-family'),
-                        fontStyle  : $input.css('font-style'),
-                        fontWeight : $input.css('font-weight'),
-                        fontVariant: $input.css('font-variant'),
-                        position   : 'absolute',
-                        left       : '-9999px',
-                        visibility : 'hidden'
+                        fontSize     : $input.css('font-size'),
+                        fontFamily   : $input.css('font-family'),
+                        fontStyle    : $input.css('font-style'),
+                        fontWeight   : $input.css('font-weight'),
+                        fontVariant  : $input.css('font-variant'),
+                        letterSpacing: $input.css('letter-spacing'),
+                        position     : 'absolute',
+                        left         : '-9999px',
+                        visibility   : 'hidden'
                     }
                 }).insertAfter($input);
 
