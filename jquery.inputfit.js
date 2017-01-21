@@ -48,7 +48,7 @@
             $input.on('keyup.inputfit keydown.inputfit', function() {
                 var $this = $(this);
 
-                clone.html($this.val().replace(/ /g, '&nbsp;'));
+                clone.text($this.val().replace(/ /g, '&nbsp;'));
 
                 var ratio = width / (clone.width() || 1),
                     currentFontSize = parseInt( $this.css('font-size'), 10 ),
