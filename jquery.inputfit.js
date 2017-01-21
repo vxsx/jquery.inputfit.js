@@ -36,6 +36,7 @@
                         fontWeight   : $input.css('font-weight'),
                         fontVariant  : $input.css('font-variant'),
                         letterSpacing: $input.css('letter-spacing'),
+                        whiteSpace   : 'nowrap',
                         position     : 'absolute',
                         left         : '-9999px',
                         visibility   : 'hidden'
@@ -48,7 +49,7 @@
             $input.on('keyup.inputfit keydown.inputfit', function() {
                 var $this = $(this);
 
-                clone.text($this.val().replace(/ /g, '&nbsp;'));
+                clone.text($this.val());
 
                 var ratio = width / (clone.width() || 1),
                     currentFontSize = parseInt( $this.css('font-size'), 10 ),
